@@ -1,7 +1,7 @@
 db.movies.aggregate([
   {
     $match: {
-      "imdb.rating" : {
+      "imdb.rating": {
         $gte: 7,
       },
       genres: {
