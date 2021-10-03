@@ -2,7 +2,7 @@ db.air_routes.aggregate([
   {
     $match: {
       airplane: {
-        $regex: /380|747/,
+        $in: ["380", "747"],
       },
     },
   },
@@ -20,16 +20,18 @@ db.air_routes.aggregate([
           },
         },
       ],
-      as: "xablau",
+      as: "alliance",
     },
   },
   {
     $group: {
-      _id: "$xablau.name",
+      _id: "$alliance.name",
       totalRotas: {
         $sum: 1,
       },
     },
   },
   { $unwind: "$_id" },
+  { $sort: { totalRotas: -1 } },
+  { $limit: 1 },
 ]);
