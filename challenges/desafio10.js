@@ -4,16 +4,11 @@ db.trips.aggregate([
       _id: "$usertype",
       duracao: {
         $avg: {
-          $divide: [
-            {
-              $dateDiff: {
-                startDate: "$startTime",
-                endDate: "$stopTime",
-                unit: "millisecond",
-              },
-            },
-            1000 * 60 * 60,
-          ],
+          $dateDiff: {
+            startDate: "$startTime",
+            endDate: "$stopTime",
+            unit: "hour",
+          },
         },
       },
     },
